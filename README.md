@@ -2,7 +2,8 @@
 
 From a web browser, people can make and receive voice calls.
 
-This application is ready to run. To deploy to [Heroku account](https://heroku.com/), you will need an Heroku account to host your application.
+This application is ready to run.
+To deploy to [Heroku](https://heroku.com/), you will need an Heroku account (a free account will work fine) to host your application.
 Once you have an account, stay logged in for the deployment and configuration.
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/tigerfarm/tigcall)
