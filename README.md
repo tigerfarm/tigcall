@@ -26,7 +26,7 @@ TOKEN_PASSWORD : your_token_password (Password is required to create tokens. You
 ````
 Client Screen print:
 
-<img src="Tiger_Voice.jpg"/>
+<img src="Voice_Calls.jpg"/>
 
 ## Twilio Console Configurations
 
