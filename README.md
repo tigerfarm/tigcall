@@ -1,23 +1,19 @@
 # Voice Call Client Application Version 1.1
 
-This application is used by people to make and receive Twilio voice calls from their browser.
+From a web browser, people can make and receive voice calls.
 
-Requirements:
-
-- For non-developers and developers: you will need a Twilio account. A free Trial account will work.
-- For non-developers, you will need an [Heroku account](https://heroku.com/) to host your application.
-- For developers, I have included a Node.JS webserver program that you can run locally on your computer.
-  You can also run this application on a website that has a PHP runtime environment.
-
-Note, no development required to run this application. It can be completely deployed and tested from a web browser.
+This application is ready to run. To deploy to [Heroku account](https://heroku.com/), you will need an Heroku account to host your application.
+Once you have an account, stay logged in for the deployment and configuration.
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/tigerfarm/tigcall)
 
-When you deploy to Heroku, you will be prompted for an app name. 
-The name needs to be unique. Example, enter your name+vc (example: davidvc). 
+When you deploy to Heroku, you will be prompted for an app name. The name needs to be unique.
+Example, enter your name+app (example: davidapp). 
 Click Deploy app. Once the application is deployed, click Manage app. 
-Set Heroku project environment variables by clicking Settings. 
-Click Reveal Config Vars. Add the following key value pairs:
+Now, set the Heroku project environment variables by clicking Settings. 
+Click Reveal Config Vars.
+
+Add the following key value pairs:
 ````
 ACCOUNT_SID : your_account_SID (starts with "AC", available from Twilio Console)
 AUTH_TOKEN : your_account_auth_token (Available from Twilio Console)
@@ -32,10 +28,10 @@ Client Screen print:
 
 ### Add Twilio Functions
 
-1. Create a Twilio Function to generate client capability tokens.
+1. Create a Twilio Function to generate client capability access tokens.
 2. Create a Twilio Function to provide TwiML to make phone calls.
-3. Create a Voice TwiML Application entry using the above Twilio Function URL (make phone calls).
-4. Configure your account's Twilio Functions settings.
+3. Add a TwiML App entry. The entry will use the above Twilio Function URL when making outbound phone calls.
+4. Configure Twilio Function settings.
 5. Test.
 
 In the following, you will need to replace the sample domain name, "about-time-1235.twil.io," with your Runtime Domain name.
