@@ -1,4 +1,4 @@
-# Tiger Call Client Application Version 1.1
+# Voice Call Client Application Version 1.1
 
 This application is used by people to make and receive Twilio voice calls from their browser.
 
@@ -24,7 +24,7 @@ AUTH_TOKEN : your_account_auth_token (Available from Twilio Console)
 TOKEN_HOST : your_Twilio_Functions_domain (example: about-time-1235.twil.io)
 TOKEN_PASSWORD : your_token_password (Password is required to create tokens. You create the password for your users)
 ````
-Tiger Client Screen print:
+Client Screen print:
 
 <img src="Tiger_Voice.jpg"/>
 
@@ -124,7 +124,7 @@ example (replace "mytwilioclient" with your Heroku application name):
 3. In the "Call to" field, enter: support. Select Call to type: Conference.
 4. Click Call, and you will be connect to the Twilio conference named, support.
     You will hear the classic Twilio conference music.
-5. In another browser, use Tiger Voice Client, with different Client ID, join the conference.
+5. In another browser, use the Voice Client, with different Client ID, join the conference.
 6. Click Hangup to disconnect from the conference, or click End conference to disconnect all participants in the conference.
 7. View the call log. In a separate tab, log into the Twilio Console.
     Beside Call to, click, See log.
