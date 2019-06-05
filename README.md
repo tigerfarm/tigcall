@@ -1,4 +1,4 @@
-# Voice Call Client Application Version 1.1
+# Voice Call Client Application Version 1.2
 
 From a web browser, people can make and receive voice calls.
 
@@ -18,8 +18,10 @@ Add the following key value pairs:
 ````
 ACCOUNT_SID : your_account_SID (starts with "AC", available from Twilio Console)
 AUTH_TOKEN : your_account_auth_token (Available from Twilio Console)
-TOKEN_HOST : your_Twilio_Functions_domain (example: about-time-1235.twil.io)
 TOKEN_PASSWORD : your_token_password (Password is required to create tokens. You create the password for your users)
+VOICE_TWIML_APP_SID_CALL_CLIENT :  Voice TwiML App SID to make calls. You can create it here: https://www.twilio.com/console/voice/twiml/apps
+API_KEY_SID : API Keys are revokable credentials for the Twilio API. You can create it here: https://www.twilio.com/console/dev-tools/api-keys
+API_KEY_SECRET : API Keys are revokable credentials for the Twilio API
 ````
 Client Screen print:
 
@@ -27,33 +29,19 @@ Client Screen print:
 
 ## Twilio Console Configurations
 
-### Add Twilio Functions
+### Twilio Console Setup
 
-1. Create a Twilio Function to generate client capability access tokens.
-2. Create a Twilio Function to provide TwiML to make phone calls.
-3. Add a TwiML App entry. The entry will use the above Twilio Function URL when making outbound phone calls.
-4. Configure Twilio Function settings.
-5. Test.
+1. Create a Twilio Function to provide TwiML to make phone calls.
+2. Add a TwiML App entry. The entry will use the above Twilio Function URL when making outbound phone calls.
+3. Configure Twilio Function settings.
+4. Test.
 
 In the following, you will need to replace the sample domain name, "about-time-1235.twil.io," with your Runtime Domain name.
 You can view your Runtime Domain name at this link:
 
 [https://www.twilio.com/console/runtime/overview](https://www.twilio.com/console/runtime/overview)
 
-1 - Create a Twilio Function to generate client capability tokens.
-In the Console, go to:
-
-[https://www.twilio.com/console/runtime/functions](https://www.twilio.com/console/runtime/functions)
-    
-1. Click the Create Function icon (circle with plus sign in the middle).
-2. Click Blank. Click Create.
-   - Properties, Function Name: Generate Client Token
-   - URL Path: https://about-time-1235.twil.io /tokenclient (note, your domain is display here)
-   - Uncheck Configuration, Access Control to allow Twilio JS Client access.
-   - Copy and paste the contents of [tokenclient.js](tokenclient.js) into the Code box.
-3. Click Save.
-
-2 - Create a Twilio Function to provide TwiML to make phone calls.
+1 - Create a Twilio Function to provide TwiML to make phone calls.
 
 [https://www.twilio.com/console/runtime/functions](https://www.twilio.com/console/runtime/functions)
     
@@ -65,7 +53,7 @@ In the Console, go to:
    - Copy and paste the contents of [makecall.js](makecall.js) into the Code box.
 3. Click Save.
 
-3- Create a Voice TwiML Application entry using the above Twilio Function URL.
+2- Create a Voice TwiML Application entry using the above Twilio Function URL.
 This is used in the token to link to the Function whichs makes the phone calls.
 In the Console, go to:
 
@@ -79,7 +67,7 @@ In the Console, go to:
    - The SID is used when creating a Function environment variable.
    - Example: APeb4627655a2a4be5ae1ba962fc9576cf
 
-4 - Configure your account's Twilio Functions settings.
+3 - Configure your account's Twilio Functions settings.
 In the Console, go to:
     
 [https://www.twilio.com/console/runtime/functions/configure](https://www.twilio.com/console/runtime/functions/configure)
@@ -109,7 +97,7 @@ You can view the host name by going to the following link. The host name, is You
     
     If you are running nodeHttpServer.js. Restart it.
 
-5 - Testing Steps
+4 - Testing Steps
 
 If on the Heroku website, use a browser to access the website Twilio Client URL,
 example (replace "mytwilioclient" with your Heroku application name):
