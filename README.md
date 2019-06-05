@@ -29,8 +29,6 @@ Client Screen print:
 
 ## Twilio Console Configurations
 
-### Twilio Console Setup
-
 1 - Create a Voice TwiML Application entry using the above Twilio Function URL.
 This is used in the token to link to the Function whichs makes the phone calls.
 In the Console, go to:
@@ -45,7 +43,11 @@ In the Console, go to:
    - The SID is used as a web server environment variable.
    - Example: APeb4627655a2a4be5ae1ba962fc9576cf
 
-2 - Testing Steps
+2 - Create an API Key SID and secret text. API Keys are revokable credentials for the Twilio API.
+The values are use as your web server environment.
+You can create API Key SID and secret text here: https://www.twilio.com/console/dev-tools/api-keys
+
+3 - Testing Steps
 
 If on the Heroku website, use a browser to access the website Twilio Client URL,
 example (replace "davidapp" with your Heroku application name):
