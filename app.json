@@ -9,6 +9,10 @@
             "description": "Your Twilio accountSid. You view it here: https://console.twilio.com",
             "value": "accountSid"
         },
+        "TWILIO_ACCOUNT_SID": {
+            "description": "Your Twilio accountSid. You view it here: https://console.twilio.com",
+            "value": "accountSid"
+        },
         "VOICE_TWIML_APP_SID_CALL_CLIENT": {
             "description": "Voice TwiML App SID to make calls. You can create it here: https://www.twilio.com/console/voice/twiml/apps",
             "value": "apiKeySid"
