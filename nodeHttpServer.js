@@ -13,9 +13,6 @@ var path = require("path");
 var port = process.argv[2] || 8000;
 var fs = require("fs");
 
-tokenHost = process.env.TOKEN_HOST;
-console.log("+ tokenHost :" + tokenHost + ":");
-
 http.createServer(function (request, response) {
 
     var uri = url.parse(request.url).pathname;

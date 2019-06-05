@@ -2,8 +2,8 @@
 
 From a web browser, people can make and receive voice calls.
 
-This application is ready to run.
-To deploy to [Heroku](https://heroku.com/) (a free account will work fine), you will need an Heroku account to host your application.
+This application is ready to run,
+and deploy to Heroku. A free [Heroku](https://heroku.com/) account will work fine for testing.
 Once you have an account, stay logged in for the deployment and configuration.
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/tigerfarm/tigcall)
@@ -15,14 +15,14 @@ Now, set the Heroku project environment variables by clicking Settings.
 Click Reveal Config Vars.
 
 Add the following key value pairs:
-````
-ACCOUNT_SID : your_account_SID (starts with "AC", available from Twilio Console)
-AUTH_TOKEN : your_account_auth_token (Available from Twilio Console)
-TOKEN_PASSWORD : your_token_password (Password is required to create tokens. You create the password for your users)
-VOICE_TWIML_APP_SID_CALL_CLIENT :  Voice TwiML App SID to make calls. You can create it here: https://www.twilio.com/console/voice/twiml/apps
-API_KEY_SID : API Keys are revokable credentials for the Twilio API. You can create it here: https://www.twilio.com/console/dev-tools/api-keys
-API_KEY_SECRET : API Keys are revokable credentials for the Twilio API
-````
+
+- ACCOUNT_SID : your_account_SID (starts with "AC", available from Twilio Console)
+- AUTH_TOKEN : your_account_auth_token (Available from Twilio Console)
+- TOKEN_PASSWORD : your_token_password (Password is required to create tokens. You create the password for your users)
+- VOICE_TWIML_APP_SID_CALL_CLIENT :  Voice TwiML App SID to make calls. You can create it here: https://www.twilio.com/console/voice/twiml/apps
+- API_KEY_SID : API Keys are revokable credentials for the Twilio API. You can create it here: https://www.twilio.com/console/dev-tools/api-keys
+- API_KEY_SECRET : API Keys are revokable credentials for the Twilio API
+
 Client Screen print:
 
 <img src="Voice_Calls.jpg"/>
@@ -31,29 +31,7 @@ Client Screen print:
 
 ### Twilio Console Setup
 
-1. Create a Twilio Function to provide TwiML to make phone calls.
-2. Add a TwiML App entry. The entry will use the above Twilio Function URL when making outbound phone calls.
-3. Configure Twilio Function settings.
-4. Test.
-
-In the following, you will need to replace the sample domain name, "about-time-1235.twil.io," with your Runtime Domain name.
-You can view your Runtime Domain name at this link:
-
-[https://www.twilio.com/console/runtime/overview](https://www.twilio.com/console/runtime/overview)
-
-1 - Create a Twilio Function to provide TwiML to make phone calls.
-
-[https://www.twilio.com/console/runtime/functions](https://www.twilio.com/console/runtime/functions)
-    
-1. Click the Create Function icon (circle with plus sign in the middle).
-2. Click Blank. Click Create.
-   - Properties, Function Name: Make a call
-   - URL Path: https://about-time-1235.twil.io /makecall (note, your domain is display here)
-   - For testing, uncheck Configuration, Access Control to allow accessible from a browser.
-   - Copy and paste the contents of [makecall.js](makecall.js) into the Code box.
-3. Click Save.
-
-2- Create a Voice TwiML Application entry using the above Twilio Function URL.
+1- Create a Voice TwiML Application entry using the above Twilio Function URL.
 This is used in the token to link to the Function whichs makes the phone calls.
 In the Console, go to:
 
@@ -62,47 +40,17 @@ In the Console, go to:
 1. Click Create new TwiML App
 2. Enter the following:
    - Friendly name: Make a call 
-   - Voice, Request URL: https://about-time-1235.twil.io/makecall (Use URL of above, with your domain name)
+   - Voice, Request URL: https://davidapp.herokuapp.com/voiceClientCall.php (Use your web server domain name)
 3. After clicking Save, go back into the app entry to get the app SID.
-   - The SID is used when creating a Function environment variable.
+   - The SID is used as a web server environment variable.
    - Example: APeb4627655a2a4be5ae1ba962fc9576cf
-
-3 - Configure your account's Twilio Functions settings.
-In the Console, go to:
-    
-[https://www.twilio.com/console/runtime/functions/configure](https://www.twilio.com/console/runtime/functions/configure)
-    
-1. Check: Enable ACCOUNT_SID and AUTH_TOKEN. This allows your Functions to access your account SID and auth token as environment variables.
-2. Create Function Environment Variables.
-
-    Key : value
-
-    TOKEN_PASSWORD : your_password_to_generate_tokens (user enters the password in the web application form)
-
-    VOICE_TWIML_APP_SID_CALL_CLIENT : Example: APeb4627655a2a4be5ae1ba962fc9576cf
-    (API key code to a Twilio Function URL)
-
-    Click Save, to save the environment variables.
-
-Update your Twilio Function host name into the Twilio Client server side programs.
-You can view the host name by going to the following link. The host name, is Your Runtime Domain name.
-
-[https://www.twilio.com/console/runtime/overview](https://www.twilio.com/console/runtime/overview)
-
-    If you are using the NodeJS webserver, edit: nodeHttpServer.js.
-    If you are using a remote webserver with PHP, edit: clientTokenGet.php.
-    Change:
-       tokenHost = "about-time-1235.twil.io";
-    to use your Twilio Function host name.
-    
-    If you are running nodeHttpServer.js. Restart it.
 
 4 - Testing Steps
 
 If on the Heroku website, use a browser to access the website Twilio Client URL,
-example (replace "mytwilioclient" with your Heroku application name):
+example (replace "davidapp" with your Heroku application name):
 
-    https://mytwilioclient.herokuapp.com/
+    https://davidapp.herokuapp.com/
 
 1. Enter a Client ID, example your first name. Enter your Token password.
 2. Click Refresh token. The message, Token refreshed, is displayed.
@@ -132,13 +80,10 @@ The Client files:
 - [custom/app.css](custom/app.css) : Styles
 
 The server files:
-- [nodeHttpServer.js](nodeHttpServer.js) : a NodeJS HTTP Server that serves the Client files and calls clientTokenGet.php.
+- [nodeHttpServer.js](nodeHttpServer.js) : a NodeJS HTTP Server that serves the Client files.
 This is used to run the Twilio Client locally on a computer.
-- [clientTokenGet.php](clientTokenGet.php) : a program that calls your Twilio Function (tokenclient.js).
-This is used when hosting the Twilio Client remotely on a public PHP website.
 
 Twilio NodeJS Functions
-- [tokenclient.js](tokenclient.js) : generates and returns a Client capability token.
 - [makecall.js](makecall.js) : provides TwiML to make phone calls.
 
 Heroku Hosting Service
