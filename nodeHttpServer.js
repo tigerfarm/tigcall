@@ -46,34 +46,23 @@ http.createServer(function (request, response) {
             return;
         }
         // ---------------------------------------------------------------------
-        if (uri === "/clientTokenGet.php") {
+        if (uri === "/generateToken.php") {
             console.log("++ Get Client token.");
-            // request.url: /clientTokenGet.php?clientid=owluser
-            theParam = request.url.substring(request.url.indexOf("?"));
-            console.log("+ theParam :" + theParam + ":");
-            //
-            theHostnameFieldname = "&tokenhost=";
-            var theIndex = request.url.indexOf(theHostnameFieldname);
-            if (theIndex > 0) {
-                tokenHost = request.url.substring(theIndex + theHostnameFieldname.length);
-            }
-            theRequest = "https://" + tokenHost + "/tokenclient"+ theParam;
-            console.log('+ theRequest:', theRequest);
-            makeRequest(theRequest, function (theError, theResponse, theToken) {
-                theResponseStatusCode = theResponse && theResponse.statusCode;
-                if (theResponseStatusCode === 200) {
-                    console.log('+ theToken:', theToken);
-                    response.writeHead(200);
-                    response.write(theToken, "binary");
-                    response.end();
-                } else {
-                    console.log('- Error:', theError);
-                    console.log('- Status code: ' + theResponseStatusCode);
-                    response.writeHead(500, {"Content-Type": "text/plain"});
-                    response.write('- Error: ' + theError + "\n");
-                    response.write('- Status code: ' + theResponseStatusCode + "\n");
-                    response.end();
+            var query = require('url').parse(request.url, true).query;
+            console.log("+ generateToken, clientid=" + query.clientid + " " + query.tokenpassword);
+            const exec = require('child_process').exec;
+            const theProgramName = uri;
+            const theProgram = 'php ' + path.join(process.cwd(), theProgramName) + " " + query.clientid + " " + query.tokenpassword;
+            exec(theProgram, (error, stdout, stderr) => {
+                theResponse = `${stdout}`;
+                console.log('+ theResponse: ' + theResponse);
+                // console.log(`${stderr}`);
+                if (error !== null) {
+                    console.log(`exec error: ${error}`);
                 }
+                response.writeHead(200);
+                response.write(theResponse, "binary");
+                response.end();
             });
             return;
         }
@@ -127,7 +116,7 @@ http.createServer(function (request, response) {
             console.log("+ " + uri + ", callFrom=" + query.callFrom + " callTo=" + query.callTo + " conferenceName=" + query.conferenceName);
             const exec = require('child_process').exec;
             const theProgramName = uri;
-            const theProgram = 'php ' + path.join(process.cwd(), theProgramName) + " " + query.callFrom + " " + query.callTo+ " " + query.conferenceName;
+            const theProgram = 'php ' + path.join(process.cwd(), theProgramName) + " " + query.callFrom + " " + query.callTo + " " + query.conferenceName;
             exec(theProgram, (error, stdout, stderr) => {
                 theResponse = `${stdout}`;
                 console.log('+ theResponse: ' + theResponse);
@@ -163,7 +152,7 @@ http.createServer(function (request, response) {
             return;
         }
         // ---------------------------------------------------------------------
-        if ( uri === "/accountPhoneNumbers.php"
+        if (uri === "/accountPhoneNumbers.php"
                 || uri === "/accountNumberList.php"
                 ) {
             var query = require('url').parse(request.url, true).query;

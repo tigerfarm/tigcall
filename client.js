@@ -229,8 +229,8 @@ function refresh() {
     logger("Refresh the token using client id: " + clientId);
     $("div.callMessages").html("Refreshing token, please wait.");
     //
-    $.get("clientTokenGet.php?clientid=" + clientId + "&tokenPassword=" + tokenPassword, function (theToken) {
-        // alert("theToken :" + theToken.trim() + ":");
+    $.get("generateToken.php?clientid=" + clientId + "&tokenpassword=" + tokenPassword, function (theToken) {
+        logger("theToken :" + theToken.trim() + ":");
         // Optional, control sounds:
         //   Twilio.Device.setup(theToken.trim(), { sounds: {
         //      incoming: 'http://tigerfarmpress.com/tech/docs/sound/HAL.mp3',

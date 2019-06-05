@@ -1,7 +1,25 @@
 {
-  "name": "Owl Client Application",
-  "description": "A web client application to make and receive voice calls using Twilio Programable Voice and Client.",
-  "repository": "https://github.com/tigerfarm/tigcall",
-  "logo": "http://tigerfarmpress.com/images/topImgLeft.jpg",
-  "keywords": ["php", "Twilio", "Client", "Voice"]
+    "name": "Owl Client Application",
+    "description": "A web client application to make and receive voice calls using Twilio Programable Voice and Client.",
+    "repository": "https://github.com/tigerfarm/tigcall",
+    "logo": "http://tigerfarmpress.com/images/topImgLeft.jpg",
+    "keywords": ["php", "Twilio", "Client", "Voice"],
+    "env": {
+        "TWILIO_ACCOUNT_SID": {
+            "description": "Your Twilio accountSid. You view it here: https://console.twilio.com",
+            "value": "accountSid"
+        },
+        "VOICE_TWIML_APP_SID_CALL_CLIENT": {
+            "description": "Voice TwiML App SID to make calls. You can create it here: https://www.twilio.com/console/voice/twiml/apps",
+            "value": "apiKeySid"
+        },
+        "API_KEY_SID": {
+            "description": "API Keys are revokable credentials for the Twilio API. You can create it here: https://www.twilio.com/console/dev-tools/api-keys",
+            "value": "apiKeySid"
+        },
+        "API_KEY_SECRET": {
+            "description": "API Keys are revokable credentials for the Twilio API.",
+            "value": "apiKeySecret"
+        }
+    }
 }
