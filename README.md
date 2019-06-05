@@ -16,12 +16,12 @@ Click Reveal Config Vars.
 
 Add the following key value pairs:
 
-- ACCOUNT_SID : your_account_SID (starts with "AC", available from Twilio Console)
-- AUTH_TOKEN : your_account_auth_token (Available from Twilio Console)
+- ACCOUNT_SID : your_account_SID (starts with "AC", available from [Twilio Console](https://www.twilio.com/console))
+- AUTH_TOKEN : your_account_auth_token (Available from [Twilio Console](https://www.twilio.com/console))
 - TOKEN_PASSWORD : your_token_password (Password is required to create tokens. You create the password for your users)
 - VOICE_TWIML_APP_SID_CALL_CLIENT :  Voice TwiML App SID to make calls. You can create it here: https://www.twilio.com/console/voice/twiml/apps
 - API_KEY_SID : API Keys are revokable credentials for the Twilio API. You can create it here: https://www.twilio.com/console/dev-tools/api-keys
-- API_KEY_SECRET : API Keys are revokable credentials for the Twilio API
+- API_KEY_SECRET : The secret text of the above API Key.
 
 Client Screen print:
 
@@ -31,7 +31,7 @@ Client Screen print:
 
 ### Twilio Console Setup
 
-1- Create a Voice TwiML Application entry using the above Twilio Function URL.
+1 - Create a Voice TwiML Application entry using the above Twilio Function URL.
 This is used in the token to link to the Function whichs makes the phone calls.
 In the Console, go to:
 
@@ -45,7 +45,7 @@ In the Console, go to:
    - The SID is used as a web server environment variable.
    - Example: APeb4627655a2a4be5ae1ba962fc9576cf
 
-4 - Testing Steps
+2 - Testing Steps
 
 If on the Heroku website, use a browser to access the website Twilio Client URL,
 example (replace "davidapp" with your Heroku application name):
@@ -71,6 +71,8 @@ example (replace "davidapp" with your Heroku application name):
    Click Call, and you will be connected to the other client.
    They will need to Accept the call, for you to talk together.
 
+--------------------------------------------------------------------------------
+
 ## For Developers
 
 ### Files
@@ -82,9 +84,6 @@ The Client files:
 The server files:
 - [nodeHttpServer.js](nodeHttpServer.js) : a NodeJS HTTP Server that serves the Client files.
 This is used to run the Twilio Client locally on a computer.
-
-Twilio NodeJS Functions
-- [makecall.js](makecall.js) : provides TwiML to make phone calls.
 
 Heroku Hosting Service
 - [app.json](app.json) : Heroku deployment file to describe the application.
