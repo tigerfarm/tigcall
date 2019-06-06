@@ -121,34 +121,39 @@ function reset() {
 
 function call() {
     // clearMessages();
-    callFromNumber = $('#accountNumbers :selected').text();
-    if (callFromNumber === "") {
-        $("div#msgMsgFrom").html("<b>Required</b>");
-        logger("Required: Twilio number to use as a caller id.");
-        return;
-    }
-    $("div.msgCallTo").html("");
-    callToValue = $("#callTo").val();
-    if (callToValue === "") {
-        $("div.msgCallTo").html("<b>Required</b>");
-        logger("- Required: Call to.");
-        return;
-    }
     if (tokenClientId === "") {
         $("div.msgTokenPassword").html("<b>Refresh the token</b>");
         logger("- Required: Refresh the token before making the call.");
         return;
     }
-    theCallType = $('#callType :selected').val();
-    theCallTo = callToValue;
-    if (theCallType !== "pstn") {
-        theCallTo = theCallType + ":" + callToValue
+    //
+    $("div.msgCallTo").html("");
+    theCallTo = $("#callTo").val();
+    if (theCallTo === "") {
+        $("div.msgCallTo").html("<b>Required</b>");
+        logger("- Required: Call to.");
+        return;
     }
+    //
+    theCallType = $('#callType :selected').val();
+    if (theCallType === "client" || theCallType === "sip") {
+        theCallTo = theCallType + ":" + theCallTo;
+    }
+    theCallFrom = theCallType + ":" + clientId;
+    if (theCallType === "pstn" || theCallType === "conference") {
+        theCallFrom = $('#accountNumbers :selected').text();
+        if (theCallFrom === "") {
+            $("div#msgMsgFrom").html("<b>Required</b>");
+            logger("- Required: Twilio number to use as a caller id.");
+            return;
+        }
+    }
+    //
     theCaller = "";
-    logger("++ Make an outgoing call from: " + clientId + ", To: " + theCallTo + ", Call Type: " + theCallType);
+    logger("++ Make an outgoing call from: " + theCallFrom + ", To: " + theCallTo + ", Call Type: " + theCallType);
     //
     // Parameters that are passed to the Twilio Function: Make a phone call.
-    params = {"To": theCallTo, "From": "client:" + clientId, "FromNumber": callFromNumber};
+    params = {"From": theCallFrom, "To": theCallTo};
     //
     $("div.callMessages").html("Calling: " + theCallTo);
     Twilio.Device.connect(params);
