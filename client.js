@@ -164,6 +164,37 @@ function hangup() {
     Twilio.Device.disconnectAll();
 }
 // -----------------------------------------------------------------------------
+// Play a song for amusement.
+// Songs from: http://www.dumb.com/touchtones/
+// var theSongName="London Bridge";
+// var theSong=" 9#963692363699#963692931"; // London Bridge
+var theSongName = "Twinkle, Twinkle, Little Star";
+var theSong = " 1199##96633221996633299663321199##96633221"; // Twinkle, Twinkle, Little Star
+var theDigit = 0;
+function doPlaySong() {
+    logger("Play: " + theSongName);
+    playSong();
+}
+function playSong() {
+    theDigit++;
+    if (theDigit >= theSong.length) {
+        theDigit = 0;
+        return;
+    }
+    playDigit(theSong.substring(theDigit, theDigit + 1));
+    setTimeout('playSong()', 500);
+}
+function playDigit(aDigit) {
+    logger("playDigit: " + aDigit);
+    theConnection.sendDigits(aDigit);
+}
+function sendDigits(aDigit) {
+    // logger("sendDigits: " + aDigit);
+    theConnection.sendDigits(aDigit);
+}
+// function donothing() {}
+
+// -----------------------------------------------------------------------------
 function setAccNumbers() {
     logger("+ setAccNumbers");
     // $('#accountNumbers option:selected').val("+16505551111");
