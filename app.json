@@ -5,11 +5,11 @@
     "logo": "http://tigerfarmpress.com/images/topImgLeft.jpg",
     "keywords": ["php", "Twilio", "Client", "Voice"],
     "env": {
-        "TWILIO_ACCOUNT_SID": {
+        "ACCOUNT_SID": {
             "description": "Your Twilio accountSid. You view it here: https://console.twilio.com",
             "value": "accountSid"
         },
-        "TWILIO_ACCOUNT_SID": {
+        "AUTH_TOKEN": {
             "description": "Your Twilio accountSid. You view it here: https://console.twilio.com",
             "value": "accountSid"
         },
@@ -17,7 +17,7 @@
             "description": "Voice TwiML App SID to make calls. You can create it here: https://www.twilio.com/console/voice/twiml/apps",
             "value": "apiKeySid"
         },
-        "API_KEY_SID": {
+        "API_KEY": {
             "description": "API Keys are revokable credentials for the Twilio API. You can create it here: https://www.twilio.com/console/dev-tools/api-keys",
             "value": "apiKeySid"
         },
