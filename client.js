@@ -136,7 +136,7 @@ function call() {
     }
     //
     theCallType = $('#callType :selected').val();
-    if (theCallType === "client" || theCallType === "sip") {
+    if (theCallType === "client" || theCallType === "conference" || theCallType === "sip") {
         theCallTo = theCallType + ":" + theCallTo;
     }
     theCallFrom = theCallType + ":" + clientId;
