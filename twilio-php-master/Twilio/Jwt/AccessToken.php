@@ -20,7 +20,7 @@ class AccessToken {
         $this->accountSid = $accountSid;
         $this->secret = $secret;
         $this->ttl = $ttl;
-
+// echo "+ ttl = " . $ttl;
         if (!is_null($identity)) {
             $this->identity = $identity;
         }

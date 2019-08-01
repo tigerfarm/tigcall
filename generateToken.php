@@ -33,11 +33,14 @@ $twilioApiKey = getenv('API_KEY');
 $twilioApiSecret = getenv('API_KEY_SECRET');
 $outgoingApplicationSid = getenv('VOICE_TWIML_APP_SID_CALL_CLIENT');
 // Create access token, which we will serialize and sent to the client
+// Token time to live (ttl):
+//      3600 seconds = 60 minutes (1 hour)
+//      36000 seconds = 600 hours
 $token = new AccessToken(
     $twilioAccountSid,
     $twilioApiKey,
     $twilioApiSecret,
-    3600,
+    36000,
     $tokenIdentity
 );
 $voiceGrant = new VoiceGrant();
