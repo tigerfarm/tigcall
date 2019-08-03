@@ -204,7 +204,7 @@ function setAccNumbers() {
     //   options.append(new Option(this.text, this.value));
     // });
     $("div#callMessages").html("+ Please wait, loading phone numbers...");
-    $.get("accountNumberList.php", function (response) {
+    $.get("accountNumberList.php?tokenpassword=" + tokenPassword, function (response) {
         logger("+ response :" + response + ":");
         if (response.indexOf("Credentials are required") > 0) {
             $("div#msgMsgFrom").html("Check environment credentials");
@@ -223,6 +223,7 @@ function setAccNumbers() {
         });
         $('#accountNumbers option')[0].selected = true; // by default, select the first option.
         $("div#callMessages").html("+ Account phone numbers loaded.");
+        $('#btn-list').prop('disabled', false);
     }).fail(function () {
         logger("- Get account phone numbers failed.");
     });
@@ -232,7 +233,7 @@ function accNumbers() {
     clearMessages();
     logger("Get account phone numbers.");
     $("div#callMessages").html("<b>Wait, getting account phone numbers...</b>");
-    $.get("accountPhoneNumbers.php", function (response) {
+    $.get("accountPhoneNumbers.php?tokenpassword=" + tokenPassword, function (response) {
         logger(response);
         $("div#callMessages").html("+ Displayed account phone numbers.");
     }).fail(function () {
@@ -280,6 +281,7 @@ function refresh() {
         tokenValid = true;
         // logger("Token refreshed.");
         tokenClientId = clientId;
+        setAccNumbers();
     })
             // .done(function () {alert("second success");})
             .fail(function () {
@@ -296,13 +298,6 @@ function clearMessages() {
     $("div.msgClientid").html("Token id: <b>" + clientId + "</b>");
     $("div.msgCallTo").html("");
     $("div.msgTokenPassword").html("");
-}
-function setClientId() {
-    clientId = $("#clientid").val();
-    if (clientId === "") {
-        // logger("Use default token client id.");
-        clientId = tokenClientId;
-    }
 }
 function refreshClientId() {
     // logger("++ Refresh the Client Id (to-caller).");
@@ -326,8 +321,7 @@ window.onload = function () {
     var log = document.getElementById('log');
     log.value = "+++ Start.";
     theCallType = "";
-    setAccNumbers();
-    // setClientId();
+    // setAccNumbers();
 };
 
 // -----------------------------------------------------------------
@@ -336,6 +330,8 @@ function setButtons(activity) {
     // $("div.callMessages").html("Activity: " + activity);
     switch (activity) {
         case "init":
+            $('#btn-list').prop('disabled', true);
+            //
             $('#btn-call').prop('disabled', true);
             $('#btn-hangup').prop('disabled', true);
             $('#btn-endconf').prop('disabled', true);

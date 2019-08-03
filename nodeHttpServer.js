@@ -20,28 +20,7 @@ http.createServer(function (request, response) {
     fs.exists(filename, function (exists) {
         console.log("+ request.url: " + request.url + ", URI: " + uri);
 
-        // ---------------------------------------------------------------------
-        if (uri === "/generateTrToken.php") {
-            // "generateTrToken.php?tokenPassword=" + tokenPassword + "&=clientid" + clientId
-            // /generateTrToken?clientid=me&tokenPassword=yes
-            var query = require('url').parse(request.url, true).query;
-            console.log("+ generateTrToken, tokenPassword=" + query.tokenPassword + ' clientid=' + query.clientid);
-            const exec = require('child_process').exec;
-            const theProgramName = uri;
-            const theProgram = 'php ' + path.join(process.cwd(), theProgramName) + " " + query.tokenPassword + " " + query.clientid;
-            exec(theProgram, (error, stdout, stderr) => {
-                theResponse = `${stdout}`;
-                console.log('+ theResponse: ' + theResponse);
-                // console.log(`${stderr}`);
-                if (error !== null) {
-                    console.log(`exec error: ${error}`);
-                }
-                response.writeHead(200);
-                response.write(theResponse, "binary");
-                response.end();
-            });
-            return;
-        }
+
         // ---------------------------------------------------------------------
         if (uri === "/generateToken.php") {
             console.log("++ Get Client token.");
@@ -64,99 +43,14 @@ http.createServer(function (request, response) {
             return;
         }
         // ---------------------------------------------------------------------
-        if (uri === "/conferenceEndFn.php") {
-            // /conferenceEnd?conferenceName=support
-            var query = require('url').parse(request.url, true).query;
-            console.log("+ conferenceEndFn, conferenceName=" + query.conferenceName);
-            const exec = require('child_process').exec;
-            const theProgramName = uri;
-            const theProgram = 'php ' + path.join(process.cwd(), theProgramName) + " " + query.conferenceName;
-            exec(theProgram, (error, stdout, stderr) => {
-                theResponse = `${stdout}`;
-                console.log('+ theResponse: ' + theResponse);
-                // console.log(`${stderr}`);
-                if (error !== null) {
-                    console.log(`exec error: ${error}`);
-                }
-                response.writeHead(200);
-                response.write(theResponse, "binary");
-                response.end();
-            });
-            return;
-        }
-        // ---------------------------------------------------------------------
-        if (uri === "/participantsHoldOn.php"
-                || uri === "/participantsHoldOff.php"
-                || uri === "/participantRemove.php") {
-            var query = require('url').parse(request.url, true).query;
-            console.log("+ " + uri + ", conferenceId=" + query.conferenceId + " callSid=" + query.callSid);
-            const exec = require('child_process').exec;
-            const theProgramName = uri;
-            const theProgram = 'php ' + path.join(process.cwd(), theProgramName) + " " + query.conferenceId + " " + query.callSid;
-            exec(theProgram, (error, stdout, stderr) => {
-                theResponse = `${stdout}`;
-                console.log('+ theResponse: ' + theResponse);
-                // console.log(`${stderr}`);
-                if (error !== null) {
-                    console.log(`exec error: ${error}`);
-                }
-                response.writeHead(200);
-                response.write(theResponse, "binary");
-                response.end();
-            });
-            return;
-        }
-        // ---------------------------------------------------------------------
-        if (uri === "/conferenceJoin.php"
-                || uri === "/conferenceJoinRm.php") {
-            var query = require('url').parse(request.url, true).query;
-            console.log("+ " + uri + ", callFrom=" + query.callFrom + " callTo=" + query.callTo + " conferenceName=" + query.conferenceName);
-            const exec = require('child_process').exec;
-            const theProgramName = uri;
-            const theProgram = 'php ' + path.join(process.cwd(), theProgramName) + " " + query.callFrom + " " + query.callTo + " " + query.conferenceName;
-            exec(theProgram, (error, stdout, stderr) => {
-                theResponse = `${stdout}`;
-                console.log('+ theResponse: ' + theResponse);
-                // console.log(`${stderr}`);
-                if (error !== null) {
-                    console.log(`exec error: ${error}`);
-                }
-                response.writeHead(200);
-                response.write(theResponse, "binary");
-                response.end();
-            });
-            return;
-        }
-        // ---------------------------------------------------------------------
-        if (uri === "/taskReservationTaskFix.php") {
-            // /taskReservationTaskFix?taskSid=WTxxxxxx
-            var query = require('url').parse(request.url, true).query;
-            console.log("+ taskReservationTaskFix, taskSid=" + query.taskSid);
-            const exec = require('child_process').exec;
-            const theProgramName = uri;
-            const theProgram = 'php ' + path.join(process.cwd(), theProgramName) + " " + query.taskSid;
-            exec(theProgram, (error, stdout, stderr) => {
-                theResponse = `${stdout}`;
-                console.log('+ theResponse: ' + theResponse);
-                // console.log(`${stderr}`);
-                if (error !== null) {
-                    console.log(`exec error: ${error}`);
-                }
-                response.writeHead(200);
-                response.write(theResponse, "binary");
-                response.end();
-            });
-            return;
-        }
-        // ---------------------------------------------------------------------
         if (uri === "/accountPhoneNumbers.php"
                 || uri === "/accountNumberList.php"
                 ) {
             var query = require('url').parse(request.url, true).query;
-            console.log("+ Run: " + uri);
+            console.log("+ Run: " + uri + " " + query.tokenpassword);
             const exec = require('child_process').exec;
             const theProgramName = uri;
-            const theProgram = 'php ' + path.join(process.cwd(), theProgramName);
+            const theProgram = 'php ' + path.join(process.cwd(), theProgramName) + " " + query.tokenpassword;
             exec(theProgram, (error, stdout, stderr) => {
                 theResponse = `${stdout}`;
                 console.log('+ theResponse: ' + theResponse);
