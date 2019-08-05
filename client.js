@@ -67,15 +67,18 @@ Twilio.Device.offline(function () {
     logger("++ Twilio.Device.offline");
 });
 Twilio.Device.error(function (error) {
-    logger("Error: " + error.message + ".");
-    if (error.message.indexOf("token parsing failed") > 0) {
+    logger("Device Error: " + error.message + ".");
+    var lcErrorMessage = error.message.toString().toLowerCase();
+    logger("Device Error toLowerCase: " + lcErrorMessage + ".");
+    if (lcErrorMessage.indexOf("token parsing failed") > 0) {
         //  Error: "JWT token parsing failed"
         $("div.msgTokenPassword").html("<b>Invalid password</b>");
         $('#btn-call').prop('disabled', true);
         tokenValid = false;
         return;
     }
-    if (error.message.indexOf("Token Expired") > 0) {
+    if (lcErrorMessage.indexOf("expired") > 0) {
+        // Error: Access Token expired or expiration date invalid.
         //  Error: "JWT Token Expired."
         $("div.msgTokenPassword").html("Voice Token Expired");
         $("div.callMessages").html("Token Expired");
@@ -85,6 +88,8 @@ Twilio.Device.error(function (error) {
         return;
     }
 });
+
+// ------------------
 Twilio.Device.incoming(function (conn) {
     theCaller = conn.parameters.From;
     $("div.callMessages").html("Incomming call from: " + theCaller);
@@ -119,6 +124,7 @@ function reset() {
     Twilio.Device.destroy();
 }
 
+// -----------------------------------------------------------------------------
 function call() {
     // clearMessages();
     if (tokenClientId === "") {
@@ -164,6 +170,7 @@ function hangup() {
     setButtons("hangup()");
     Twilio.Device.disconnectAll();
 }
+
 // -----------------------------------------------------------------------------
 // Play a song for amusement.
 // Songs from: http://www.dumb.com/touchtones/
