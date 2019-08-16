@@ -336,50 +336,30 @@ function setButtons(activity) {
     logger("setButtons, activity: " + activity);
     // $("div.callMessages").html("Activity: " + activity);
     switch (activity) {
-        case "init":
-            $('#btn-list').prop('disabled', true);
-            //
-            $('#btn-call').prop('disabled', true);
-            $('#btn-hangup').prop('disabled', true);
-            $('#btn-endconf').prop('disabled', true);
-            $('#btn-accept').prop('disabled', true);
-            $('#btn-reject').prop('disabled', true);
-            //
-            $('#btn-onholdCallers').prop('disabled', true);
-            $('#btn-offholdCallers').prop('disabled', true);
-            //
-            $('#btn-online').prop('disabled', true);
-            $('#btn-offline').prop('disabled', true);
-            $('#btn-acceptTR').prop('disabled', true);
-            $('#btn-rejectTR').prop('disabled', true);
-            break;
         case "Device.disconnect":
             $('#btn-call').prop('disabled', false);
             $('#btn-hangup').prop('disabled', true);
-            $('#btn-endconf').prop('disabled', true);
             $('#btn-accept').prop('disabled', true);
             $('#btn-reject').prop('disabled', true);
-            $('#btn-onholdCallers').prop('disabled', true);
-            $('#btn-offholdCallers').prop('disabled', true);
-            $('#btn-addtoconf').prop('disabled', true);
-            $('#btn-rmtoconf').prop('disabled', true);
             break;
         case "hangup()":
             $('#btn-call').prop('disabled', false);
             $('#btn-hangup').prop('disabled', true);
-            $('#btn-endconf').prop('disabled', true);
-            $('#btn-onholdCallers').prop('disabled', true);
-            $('#btn-offholdCallers').prop('disabled', true);
-            $('#btn-addtoconf').prop('disabled', true);
-            $('#btn-rmtoconf').prop('disabled', true);
-            break;
-        case "endConference()":
-            $('#btn-endconf').prop('disabled', true);
+            $('#btn-accept').prop('disabled', true);
+            $('#btn-reject').prop('disabled', true);
             break;
         case "accept()":
             $('#btn-call').prop('disabled', true);
             $('#btn-hangup').prop('disabled', false);
-            $('#btn-endconf').prop('disabled', true);
+            $('#btn-accept').prop('disabled', true);
+            $('#btn-reject').prop('disabled', true);
+            break;
+        case "init":
+            $('#btn-list').prop('disabled', true);
+            //
+            $('#btn-refresh').prop('disabled', false);
+            $('#btn-call').prop('disabled', true);
+            $('#btn-hangup').prop('disabled', true);
             $('#btn-accept').prop('disabled', true);
             $('#btn-reject').prop('disabled', true);
             break;
@@ -387,7 +367,8 @@ function setButtons(activity) {
             $('#btn-refresh').prop('disabled', false);
             $('#btn-call').prop('disabled', true);
             $('#btn-hangup').prop('disabled', true);
-            $('#btn-endconf').prop('disabled', true);
+            $('#btn-accept').prop('disabled', true);
+            $('#btn-reject').prop('disabled', true);
             break;
     }
 }

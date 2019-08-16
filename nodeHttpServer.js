@@ -22,7 +22,7 @@ http.createServer(function (request, response) {
 
 
         // ---------------------------------------------------------------------
-        if (uri === "/generateToken.php") {
+        if (uri === "/tigcall/generateToken.php") {
             console.log("++ Get Client token.");
             var query = require('url').parse(request.url, true).query;
             console.log("+ generateToken, clientid=" + query.clientid + " " + query.tokenpassword);
@@ -43,8 +43,8 @@ http.createServer(function (request, response) {
             return;
         }
         // ---------------------------------------------------------------------
-        if (uri === "/accountPhoneNumbers.php"
-                || uri === "/accountNumberList.php"
+        if (uri === "/tigcall/accountPhoneNumbers.php"
+                || uri === "/tigcall/accountNumberList.php"
                 ) {
             var query = require('url').parse(request.url, true).query;
             console.log("+ Run: " + uri + " " + query.tokenpassword);
