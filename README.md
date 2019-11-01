@@ -54,7 +54,7 @@ example (replace "davidapp" with your Heroku application name):
 
     https://davidapp.herokuapp.com/
 
-1. Enter a Client ID, example your first name. Enter your Token password.
+1. Enter a Client ID, example your first name. Enter the password (the value of your environment variable, TOKEN_PASSWORD).
 2. Click Refresh token. The message, Token refreshed, is displayed.
 3. In the "Call to" field, enter: support. Select Call to type: Conference.
 4. Click Call, and you will be connect to the Twilio conference named, support.
