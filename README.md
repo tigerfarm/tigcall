@@ -37,8 +37,8 @@ In the Console, go to:
     
 1. Click Create new TwiML App
 2. Enter the following:
-   - Friendly name: Make a call 
-   - Voice, Request URL: https://davidapp.herokuapp.com/voiceClientCall.php (Use your web server domain name)
+   - Friendly name: Make a call
+   - Voice, Request URL: https://davidapp.herokuapp.com/tigcall/voiceClientCall.php (Use your web server domain name)
 3. After clicking Save, go back into the app entry to get the app SID.
    - The SID is used as a web server environment variable.
    - Example: APeb4627655a2a4be5ae1ba962fc9576cf
