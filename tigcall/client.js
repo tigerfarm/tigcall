@@ -223,6 +223,7 @@ function setAccNumbers() {
         if (response === "0") {
             $("div#msgMsgFrom").html("<b>No account phone numbers.</b>");
             $("div#callMessages").html("<b>- You are required to have at least one account phone numbers.</b>");
+            return;
         }
         arrayNumbers = response.split(":");
         // options.append($("<option />").val(aNumbers[0]).text(aNumbers[0]));
