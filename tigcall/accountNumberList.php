@@ -10,8 +10,8 @@ if ($tokenPassword == "") {
 }
 $token_password = getenv("TOKEN_PASSWORD");
 if ($token_password !== $tokenPassword) {
-    // echo "0" . " Environment:" . $token_password . ": Parameter:" . $tokenPassword . ":";
-    echo "0 -- invalid tokenpassword";
+    echo "0" . " Environment:" . $token_password . ": Parameter:" . $tokenPassword . ":";
+    echo "0";
     return;
 }
 

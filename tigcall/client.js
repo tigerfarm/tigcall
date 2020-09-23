@@ -211,6 +211,7 @@ function setAccNumbers() {
     //   options.append(new Option(this.text, this.value));
     // });
     $("div#callMessages").html("+ Please wait, loading phone numbers...");
+    // https://tigcall.herokuapp.com/accountNumberList.php?tokenpassword=thepassword
     $.get("accountNumberList.php?tokenpassword=" + tokenPassword, function (response) {
         logger("+ response :" + response + ":");
         if (response.indexOf("Credentials are required") > 0) {
@@ -234,6 +235,7 @@ function setAccNumbers() {
     }).fail(function () {
         logger("- Get account phone numbers failed.");
     });
+    logger("+ setAccNumbers completed");
 }
 
 function accNumbers() {
