@@ -74,6 +74,7 @@ exports.handler = function(context, event, callback) {
     } else if (callTo.startsWith("queue:")) {
       	// Leave as is because this is a Client to queue call.
     } else if (callFrom === "client:"+clientid) {
+        // Note, you can add more client ids to match callerids by adding more "else if" clauses.
         callFrom = theCallerId;
     } else {
         console.log("- Error: Client id not in the list.");
