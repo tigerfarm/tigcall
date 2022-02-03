@@ -30,8 +30,8 @@ Twilio.Device.ready(function (device) {
     $('#btn-call').prop('disabled', false);
     $('#btn-refresh').prop('disabled', true);
 });
-Twilio.Device.connect(function (conn) {
-    logger("Call connected.");
+Twilio.Device.connect(function (conn) { 
+   logger("Call connected.");
     // https://www.twilio.com/docs/api/client/connection#outgoing-parameters
     theConnection = conn;
     theCallSid = conn.parameters.CallSid;
@@ -89,7 +89,7 @@ Twilio.Device.error(function (error) {
     }
 });
 
-// ------------------
+// -------------------------------------------------------------------------------
 Twilio.Device.incoming(function (conn) {
     theCaller = conn.parameters.From;
     $("div.callMessages").html("Incomming call from: " + theCaller);
@@ -107,14 +107,14 @@ Twilio.Device.incoming(function (conn) {
 function accept() {
     logger("Accepted call.");
     theConnection.accept();
-    $("div.callMessages").html("Accepted: incomming call from: " + theCaller);
+    $("div.callMessages").html("Accepted: incoming call from: " + theCaller);
     $("div.msgTokenPassword").html("");
     setButtons("accept()");
 }
 function reject() {
     logger("Rejected call.");
     theConnection.reject();
-    $("div.callMessages").html("Rejected: incomming call from: " + theCaller);
+    $("div.callMessages").html("Rejected: incoming call from: " + theCaller);
     $("div.msgTokenPassword").html("");
     $('#btn-accept').prop('disabled', true);
     $('#btn-reject').prop('disabled', true);

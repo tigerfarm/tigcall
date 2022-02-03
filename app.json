@@ -19,6 +19,9 @@
         },
         "API_KEY_SECRET": {
             "description": "API Keys are revokable credentials for the Twilio API."
+        },
+        "TOKEN_PASSWORD": {
+            "description": "Password to allow use of this application."
         }
     }
 }
