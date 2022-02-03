@@ -32,9 +32,9 @@ Client Screen print:
 1 - Create a Twilio Function that returns TwiML to make a voice call.
 The Twilio Function URL will be used in the next step.
 
-In your Function,
-+ Change "dave" to be your voice client id.
-+ Change "+16505551111" to be one of your Twilio phone numbers
+In your Function, use the following code, and:
++ Change "dave" (clientid) to be your voice client id.
++ Change "+16505551111" (theCallerId) to be one of your Twilio phone numbers
 that will be used as caller id when making an outbound PSTN call.
 
 ````
@@ -43,7 +43,10 @@ that will be used as caller id when making an outbound PSTN call.
 
 exports.handler = function(context, event, callback) {
     console.log("---------------------------------------------------------");
+    //
     let clientid = "dave";
+    let theCallerId = "+16505551111";
+    //
     let callFrom = event.From || null;
     let callTo = event.To || null;
     let twiml = new Twilio.twiml.VoiceResponse();
@@ -59,9 +62,9 @@ exports.handler = function(context, event, callback) {
     }
     console.log("+ Call From: " + callFrom);
     console.log("+ Call To: " + callTo);
-  	//
-	  // Set callerid by mapping Client id or phone number to a phone number.
-	  //
+    //
+    // Set callerid by mapping Client id or phone number to a phone number.
+    //
     if (callTo.startsWith("client:")) {
       	// Leave as is because this is a Client to Client call.
     } else if (callTo.startsWith("conference:")) {
@@ -71,7 +74,7 @@ exports.handler = function(context, event, callback) {
     } else if (callTo.startsWith("queue:")) {
       	// Leave as is because this is a Client to queue call.
     } else if (callFrom === "client:"+clientid) {
-        callFrom = "+16505551111";
+        callFrom = theCallerId;
     } else {
         console.log("- Error: Client id not in the list.");
         twiml.say({voice: 'alice', language: 'en-CA', }, 'Error placing the call. Unknown client id.');
