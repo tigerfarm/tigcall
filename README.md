@@ -29,7 +29,84 @@ Client Screen print:
 
 ## Twilio Console Configurations
 
-1 - Create a Voice TwiML Application entry using the above Twilio Function URL.
+1 - Create a Twilio Function that returns TwiML to make a voice call.
+The Twilio Function URL will be used in the next step.
+
+In your Function,
++ Change "dave" to be your voice client id.
++ Change "+16505551111" to be one of your Twilio phone numbers
+that will be used as caller id when making an outbound PSTN call.
+
+````
+// Create voice call TwiML.
+// Example: <Response><Dial callerId="+16505551111" record="do-not-record">+16505552222</Dial></Response>
+
+exports.handler = function(context, event, callback) {
+    console.log("---------------------------------------------------------");
+    let clientid = "dave";
+    let callFrom = event.From || null;
+    let callTo = event.To || null;
+    let twiml = new Twilio.twiml.VoiceResponse();
+    if (callFrom === null) {
+        twiml.say({voice: 'alice', language: 'en-CA', }, 'Error placing the call. The From-caller is required.');
+        callback(null, twiml);
+        return;
+    }
+    if (callTo === null) {
+        twiml.say({voice: 'alice', language: 'en-CA', }, 'Error placing the call. The To-caller is required.');
+        callback(null, twiml);
+        return;
+    }
+    console.log("+ Call From: " + callFrom);
+    console.log("+ Call To: " + callTo);
+  	//
+	  // Set callerid by mapping Client id or phone number to a phone number.
+	  //
+    if (callTo.startsWith("client:")) {
+      	// Leave as is because this is a Client to Client call.
+    } else if (callTo.startsWith("conference:")) {
+        //                       "12345678901"
+        // callFrom = callTo.substr(11);
+      	callFrom = clientid;
+    } else if (callTo.startsWith("queue:")) {
+      	// Leave as is because this is a Client to queue call.
+    } else if (callFrom === "client:"+clientid) {
+        callFrom = "+16505551111";
+    } else {
+        console.log("- Error: Client id not in the list.");
+        twiml.say({voice: 'alice', language: 'en-CA', }, 'Error placing the call. Unknown client id.');
+        callback(null, twiml);
+        return;
+    }
+    console.log("+ Caller id: " + callFrom);
+    //
+    let dialParams = {};
+    dialParams.callerId = callFrom
+    dialParams.record = "do-not-record"
+    if (callTo.startsWith("sip:")) {
+        console.log("+ Make a SIP call.");
+        twiml.dial(dialParams).sip(callTo);
+    } else if (callTo.startsWith("client:")) {
+        //                        1234567
+        console.log("+ Make a Client call.");
+        twiml.dial(dialParams).client(callTo.substr(7));
+    } else if (callTo.startsWith("conference:")) {
+        //                        12345678901
+        console.log("+ Make a Conference call.");
+        twiml.dial(dialParams).conference(callTo.substr(11));
+    } else if (callTo.startsWith("queue:")) {
+      	//                        123456
+        console.log("+ Make a queue call.");
+        twiml.dial(dialParams).queue(callTo.substr(6));
+    } else {
+        console.log("+ Make a PSTN call.");
+        twiml.dial(dialParams, callTo);
+    }
+    callback(null, twiml);
+};
+````
+
+2 - Create a Voice TwiML Application entry using the above Twilio Function URL.
 This is used in the token to link to the Function whichs makes the phone calls.
 In the Console, go to:
 
@@ -38,7 +115,7 @@ In the Console, go to:
 1. Click Create new TwiML App
 2. Enter the following:
    - Friendly name: Make a call
-   - Voice, Request URL: https://davidapp.herokuapp.com/tigcall/voiceClientCall.php (Use your web server domain name)
+   - Voice, Request URL: https://voice-2357.twil.io/makecall (Use your Twilio Function URL from above)
 3. After clicking Save, go back into the app entry to get the app SID.
    - The SID is used as a web server environment variable.
    - Example: APeb4627655a2a4be5ae1ba962fc9576cf
