@@ -29,6 +29,10 @@ Client Screen print:
 
 ## Twilio Console Configurations
 
+When generating a voice token, the token includes the Voice TwiML Application API SID.
++ 1 - Create a Twilio Function that returns TwiML to make a voice call.
++ 2 - Create a Voice TwiML Application API entry using the above Twilio Function URL.
+
 1 - Create a Twilio Function that returns TwiML to make a voice call.
 The Twilio Function URL will be used in the next step.
 
