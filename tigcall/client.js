@@ -213,7 +213,7 @@ function setAccNumbers() {
     $("div#callMessages").html("+ Please wait, loading phone numbers...");
     // https://tigcall.herokuapp.com/accountNumberList.php?tokenpassword=thepassword
     $.get("accountNumberList.php?tokenpassword=" + tokenPassword, function (response) {
-        logger("+ response :" + response + ":");
+        logger("+ response :" + response.trim() + ":");
         if (response.indexOf("Credentials are required") > 0) {
             $("div#msgMsgFrom").html("Check environment credentials");
             $("div#callMessages").html("<b>- Error: environment credentials are required.</b>");
@@ -227,6 +227,7 @@ function setAccNumbers() {
         }
         arrayNumbers = response.split(":");
         // options.append($("<option />").val(aNumbers[0]).text(aNumbers[0]));
+        options.empty();
         arrayNumbers.forEach(function (aNumbers) {
             options.append($("<option />").val(aNumbers).text(aNumbers));
         });
@@ -277,8 +278,13 @@ function refresh() {
     logger("Refresh the token using client id: " + clientId);
     $("div.callMessages").html("Refreshing token, please wait.");
     //
+    tokenValid = false;
     $.get("generateToken.php?clientid=" + clientId + "&tokenpassword=" + tokenPassword, function (theToken) {
         logger("theToken :" + theToken.trim() + ":");
+        if (theToken.startsWith("0")) {
+            return;
+        }
+        tokenValid = true;
         // Optional, control sounds:
         //   Twilio.Device.setup(theToken.trim(), { sounds: {
         //      incoming: 'http://tigerfarmpress.com/tech/docs/sound/HAL.mp3',
@@ -288,7 +294,6 @@ function refresh() {
         Twilio.Device.setup(theToken.trim(), {region: "gll", debug: true});
         $("div.msgClientid").html("Token id: " + clientId);
         $("div.callMessages").html("");
-        tokenValid = true;
         // logger("Token refreshed.");
         tokenClientId = clientId;
         setAccNumbers();
@@ -331,7 +336,6 @@ window.onload = function () {
     var log = document.getElementById('log');
     log.value = "+++ Start.";
     theCallType = "";
-    // setAccNumbers();
 };
 
 // -----------------------------------------------------------------
