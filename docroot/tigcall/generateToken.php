@@ -25,7 +25,7 @@ if ($token_password !== $tokenPassword) {
     return;
 }
 // echo "+ tokenIdentity: " . $tokenIdentity . ", tokenPassword: " . $tokenPassword . "\n";
-require __DIR__ . '/../twilio-php-master/Twilio/autoload.php';
+require __DIR__ . '/../../twilio-php-master/Twilio/autoload.php';
 use Twilio\Jwt\AccessToken;
 use Twilio\Jwt\Grants\VoiceGrant;
 // Required for all Twilio access tokens
